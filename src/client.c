@@ -6,24 +6,26 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-int get_port() {
-    printf("In which port do you want to connect ? : ");
-    char line[100];
-    if (fgets(line, 100, stdin) == NULL) {
+#define CHAR_MAX 100
+
+void get_line(char *line) {
+    if (fgets(line, CHAR_MAX, stdin) == NULL) {
         perror("\n Problem to read from stdin \n");
         exit(1);
     }
-    
+}
+
+int get_port() {
+    printf("port : ");
+    char line[CHAR_MAX];
+    get_line(line);
     return  atoi(line);
 }
 
 void get_ip_addr(void *addr) {
-    printf("What's the address of server you want to connect ? : ");
-    char line[100];
-    if (fgets(line, 100, stdin) == NULL) {
-        perror("\n Problem to read from stdin \n");
-        exit(1);
-    }
+    printf("IP address : ");
+    char line[CHAR_MAX];
+    get_line(line);
     line[strlen(line)-1] = '\0';
     if (inet_pton(AF_INET, line, addr) <= 0) {
         perror("\n Error during address conversion \n");
@@ -48,12 +50,9 @@ void do_connect(int sock, struct sockaddr_in *addr) {
 }
 
 void send_messages(int sock) {
-    char line[100];
+    char line[CHAR_MAX];
     do {
-        if (fgets(line, 100, stdin) == NULL) {
-            perror("\n Problem to read from stdin \n");
-            exit(1);
-        }
+        get_line(line);
     } while (send(sock, line, sizeof(line), 0) != -1);
 }
 

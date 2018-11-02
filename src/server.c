@@ -17,7 +17,6 @@ char *responses[NB_CHAL] = {
 };
 
 void challenge(int index, int socket) {
-    printf("\e[1;1H\e[2J");
     printf("%s\n", challenges[index]);
     char buffer[100] = {0};
 
@@ -35,6 +34,9 @@ int main() {
 
     int socket = new_socket();
 
+    int opt = 1;
+    set_sock_opt(socket, &opt);
+
     bind_port(socket, &addr);
 
     listen_port(socket);
@@ -42,6 +44,8 @@ int main() {
     int new_socket = accept_connection(socket, &addr);
 
     for (int i = 0; i < NB_CHAL; i++) {
+       printf("\e[1;1H\e[2J");
+       printf("-------------------- Challenge %d --------------------\n", i);
        challenge(i, new_socket);
     } 
     return 0;

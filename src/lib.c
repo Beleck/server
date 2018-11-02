@@ -9,6 +9,13 @@
 
 #define CHAR_MAX 100
 
+void set_sock_opt(int socket, int *opt) {
+    if (setsockopt(socket, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, opt, sizeof(*opt))) {
+        perror("\n Error setting socket options \n");
+        exit(1);
+    }
+}
+
 int accept_connection(int socket, struct sockaddr_in *addr) {
     int size = sizeof(*addr);
     int new_socket = accept(socket, (struct sockaddr *) addr, (socklen_t *) &size);

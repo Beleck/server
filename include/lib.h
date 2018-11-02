@@ -2,6 +2,7 @@
 #define _LIB_H
 #include <netinet/in.h>
 
+void set_sock_opt(int socket, int *opt);
 int accept_connection(int socket, struct sockaddr_in *addr);
 void listen_port(int socket);
 void bind_port(int socket, struct sockaddr_in *addr);

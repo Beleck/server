@@ -67,6 +67,8 @@ int main() {
            break;
        }
     } 
+    printf("\e[1;1H\e[2J");
+    printf("Congratulations you finished the game !\n");
     close(new_socket);
     close(socket);
 

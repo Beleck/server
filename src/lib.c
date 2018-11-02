@@ -15,7 +15,6 @@ void get_addr(struct sockaddr_in *addr) {
     memset(addr, '0', sizeof(*addr));
     addr->sin_family = AF_INET;
     addr->sin_port = htons(port);
-    get_ip_addr(&addr->sin_addr);
 }
 
 void get_line(char *line) {

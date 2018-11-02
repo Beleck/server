@@ -8,6 +8,7 @@
 int main() {
     struct sockaddr_in addr;
     get_addr(&addr);
+    get_ip_addr(&addr.sin_addr);
 
     int socket = new_socket();
 

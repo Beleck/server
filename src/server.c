@@ -4,14 +4,21 @@
 #include <unistd.h>
 #include <string.h>
 
-#define NB_CHAL 2
+#define NB_CHAL 3
+#define C_1 "Welcome to our game !!!\n"\
+"In this game you'll find pretty fun levels.\n\n"\
+"Enjoy !!\n\n"\
+"For this level just send \"copy\\n\"\n"
+
 
 char *challenges[NB_CHAL] = {
+    C_1,
     "La réponse est Paris",
     "La réponse est Madrid"
 };
 
 char *responses[NB_CHAL] = {
+    "copy",
     "Paris",
     "Madrid"
 };

@@ -9,6 +9,30 @@
 
 #define CHAR_MAX 100
 
+int accept_connection(int socket, struct sockaddr_in *addr) {
+    int size = sizeof(*addr);
+    int new_socket = accept(socket, (struct sockaddr *) addr, (socklen_t *) &size);
+    if (new_socket < 0) {
+        perror("\n Error accept connection\n");
+        exit(1);
+    }
+    return new_socket;
+}
+
+void listen_port(int socket) {
+    if (listen(socket, 3) < 0) {
+        perror("\n Error listening\n");
+        exit(1);
+    }
+}
+
+void bind_port(int socket, struct sockaddr_in *addr) {
+    if (bind(socket, (struct sockaddr *) addr, sizeof(*addr)) < 0) {
+        perror("\n bind port error \n");
+        exit(1);
+    }
+}
+
 void get_addr(struct sockaddr_in *addr) {
     int port = get_port();
 

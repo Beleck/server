@@ -2,6 +2,9 @@
 #define _LIB_H
 #include <netinet/in.h>
 
+int accept_connection(int socket, struct sockaddr_in *addr);
+void listen_port(int socket);
+void bind_port(int socket, struct sockaddr_in *addr);
 void get_addr(struct sockaddr_in *addr);
 void get_line(char *line);
 int get_port();

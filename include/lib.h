@@ -2,6 +2,7 @@
 #define _LIB_H
 #include <netinet/in.h>
 
+void get_addr(struct sockaddr_in *addr);
 void get_line(char *line);
 int get_port();
 void get_ip_addr();

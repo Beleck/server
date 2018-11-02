@@ -13,8 +13,8 @@
 
 char *challenges[NB_CHAL] = {
     C_1,
-    "La réponse est Paris",
-    "La réponse est Madrid"
+    "La réponse est Paris\n",
+    "La réponse est Madrid\n"
 };
 
 char *responses[NB_CHAL] = {
@@ -23,15 +23,23 @@ char *responses[NB_CHAL] = {
     "Madrid"
 };
 
-void challenge(int index, int socket) {
+int challenge(int index, int socket) {
     printf("%s\n", challenges[index]);
     char buffer[100] = {0};
 
-    while (strcmp(buffer, responses[index]) != 0) {
+    while (1) {
         if (recv(socket, buffer, 100, 0) <= 0) {
-            return;
+            return -1;
         }
         buffer[strlen(buffer) - 1] = '\0';
+        if (strcmp(buffer, responses[index]) != 0) {
+            printf("Seriously ? That's really your response : %s\n", buffer);
+            sleep(2);
+            printf("\033[A\33[2K\r");
+            fflush(stdout);
+        } else {
+            return 0;
+        }
     }
 }
 
@@ -55,7 +63,9 @@ int main() {
     for (int i = 0; i < NB_CHAL; i++) {
        printf("\e[1;1H\e[2J");
        printf("-------------------- Challenge %d --------------------\n", i);
-       challenge(i, new_socket);
+       if (challenge(i, new_socket) == -1) {
+           break;
+       }
     } 
     close(new_socket);
     close(socket);

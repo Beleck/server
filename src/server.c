@@ -21,7 +21,9 @@ void challenge(int index, int socket) {
     char buffer[100] = {0};
 
     while (strcmp(buffer, responses[index]) != 0) {
-        read(socket, buffer, 100);
+        if (recv(socket, buffer, 100, 0) <= 0) {
+            return;
+        }
         buffer[strlen(buffer) - 1] = '\0';
     }
 }
@@ -48,5 +50,8 @@ int main() {
        printf("-------------------- Challenge %d --------------------\n", i);
        challenge(i, new_socket);
     } 
+    close(new_socket);
+    close(socket);
+
     return 0;
 }

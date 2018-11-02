@@ -90,7 +90,7 @@ void do_connect(int sock, struct sockaddr_in *addr) {
 }
 
 void send_messages(int sock) {
-    char line[CHAR_MAX];
+    char line[CHAR_MAX] = {0};
     do {
         get_line(line);
     } while (send(sock, line, sizeof(line), 0) != -1);

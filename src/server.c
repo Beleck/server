@@ -2,6 +2,31 @@
 #include <stdio.h>
 #include <lib.h>
 #include <unistd.h>
+#include <string.h>
+
+#define NB_CHAL 2
+
+char *challenges[NB_CHAL] = {
+    "La réponse est Paris",
+    "La réponse est Madrid"
+};
+
+char *responses[NB_CHAL] = {
+    "Paris",
+    "Madrid"
+};
+
+void challenge(int index, int socket) {
+    printf("\e[1;1H\e[2J");
+    printf("%s\n", challenges[index]);
+    char buffer[100] = {0};
+
+    while (strcmp(buffer, responses[index]) != 0) {
+        read(socket, buffer, 100);
+        buffer[strlen(buffer) - 1] = '\0';
+    }
+}
+
 
 int main() {
     struct sockaddr_in addr;
@@ -16,9 +41,8 @@ int main() {
 
     int new_socket = accept_connection(socket, &addr);
 
-    char buffer[100] = {0};
-    read(new_socket, buffer, 100);
-    printf("%s\n", buffer);
-    
+    for (int i = 0; i < NB_CHAL; i++) {
+       challenge(i, new_socket);
+    } 
     return 0;
 }

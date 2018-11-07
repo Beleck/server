@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#define NB_CHAL 3
+#define NB_CHAL 6
 #define C_1 "Welcome to our game !!!\n"\
 "In this game you'll find pretty fun levels.\n\n"\
 "Enjoy !!\n\n"\
@@ -14,13 +14,20 @@
 char *challenges[NB_CHAL] = {
     C_1,
     "La réponse est Paris\n",
-    "La réponse est Madrid\n"
+    "La réponse est Madrid\n",
+    "Caesar just sent me this message: aol huzdly av aopz johsslunl pz: yvtl aol nylha help me understand what it means! I only know that his favorite number is 7 \n",
+    "Qué criatura tiene 4 patas a la mañana, 2 patas al mediodía y 3 patas a la noche?\n",
+    "222 666 6 444 3 2\n"
 };
 
 char *responses[NB_CHAL] = {
     "copy",
     "Paris",
-    "Madrid"
+    "Madrid",
+    "Rome the great",
+    "El hombre",
+    "comida"
+
 };
 
 int challenge(int index, int socket) {
